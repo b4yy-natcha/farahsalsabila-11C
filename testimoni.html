@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phawanie Literary House</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <header>
+        <h1>Phawaniey Literary House</h1>
+          <p>"A sanctuary of words and timeless beauty."</p>
+    </header>
+
+   <nav>
+    <a href="index.html">#homepage</a>
+    <a href="product.html">#product</a>
+    <a href="book-review.html">#book review</a>
+    <a href="testimoni.html">#testimoni</a>
+    <a href="show-testimoni.html">#buyer testimonials</a>
+    <a href="contact.html">#contact</a>
+    <a href="event.html">#event</a>
+
+  </nav>
+
+<h1>      </h1>
+<main class="formulir">
+    <h2>Give your Testimoni</h2>
+    <form id="formTestimoni">
+    <label for="name">Name</label>
+<input type="text" id="name" name="name" required placeholder="Full Name">
+
+<label for="origin">origin of school/agency/community</label> 
+<input type="text" id="origin" name="origin" required placeholder="example: Alka boarding school">
+
+<label for="email">Email :</label>
+<input type="email" id="email" name="email" required placeholder="email@example.com">
+
+<label for="title of the book purchased">title of the book purchased</label>
+<input type="text" id="title" name="title">
+
+<label for="book rating">book rating (1-5)</label>
+<input type="number" id="rating" name="rating">
+
+<label for="messages">Your testimoni :</label>
+<textarea id="messages" name="messages" required placeholder="write your experience..." rows="5"></textarea>
+
+<button type="submit">Send Testimoni</button>
+
+</form>
+</main>
+<footer>
+    <header>
+        <img src="yaya.png" alt="header">
+    </header>
+    <p>&copy; 2026 Phawaniey Literary House. All rights reserved. </p>
+</footer>
+<script>
+    document.getElementById('formTestimoni').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const origin = document.getElementById('origin').value;
+        const email = document.getElementById('email').value;
+        const title = document.getElementById('title').value;
+        const rating = document.getElementById('rating').value;
+        const messages = document.getElementById('messages').value;
+
+        const newdata = {name, origin, email, title, rating, messages};
+
+        const testimoniList = JSON.parse(localStorage.getItem('testimoniList')) || [];
+        testimoniList.push(newdata);
+
+        localStorage.setItem('testimoniList', JSON.stringify(testimoniList));
+
+        // arahkan ke halaman tampil testimoni
+        window.location.href = 'show-testimoni.html';
+    });
+</script>
+</body>
+</html> 

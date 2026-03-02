@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phawanie Literary House</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <header>
+        <h1>Phawaniey Literary House</h1>
+         <p>"A sanctuary of words and timeless beauty."</p>
+    </header>
+
+  <nav>
+    <a href="index.html">#homepage</a>
+    <a href="product.html">#product</a>
+    <a href="book-review.html">#book review</a>
+    <a href="testimoni.html">#testimoni</a>
+    <a href="show-testimoni.html">#buyer testimonials</a>
+    <a href="contact.html">#contact</a>
+    <a href="event.html">#event</a>
+
+  </nav>
+
+<h1>   </h1> 
+<main>
+  <section>
+    <h2>Buyer Testimonials</h2>
+    <p>
+      Welcome to our hall of voices. Here, readers share their journeys,  
+      their reflections, and the timeless resonance of literature.
+    </p>
+    <div class="blockquote">
+      "A book is not only read, it is lived."
+    </div>
+  </section>
+
+  <button id="removeAll">Delete All Testimonials</button>
+  <div id="listOfTestimonials"></div>
+
+  <section>
+    <h2>The Meaning of Testimonials</h2>
+    <p>
+      Testimonials are more than feedback; they are echoes of experience.  
+      Each message is a lantern guiding us through the silent corridors of wisdom.
+    </p>
+  </section>
+</main>
+
+  <a href="index.html" class="btn-back">⇦ back to homepage</a>
+
+  <script>
+    const container = document.getElementById('listOfTestimonials');
+    let testimoniList = JSON.parse(localStorage.getItem("testimoniList")) || [];
+
+    if (testimoniList.length === 0) {
+      container.innerHTML = "<p>no testimoni yet</p>";
+    } else {
+      testimoniList.forEach((t, i) => {
+        const el = document.createElement('div');
+        el.className = 'testimoni-box';
+        el.innerHTML = `
+          <p><strong>Nama:</strong> ${t.name}</p>
+          <p><strong>Asal:</strong> ${t.origin}</p>
+          <p><strong>Email:</strong> ${t.email}</p>
+          <p><strong>Judul Buku:</strong> ${t.title}</p>
+          <p><strong>Rating:</strong> ${t.rating}</p>
+          <p><strong>Pesan:</strong> ${t.messages}</p>
+          <button class="btn-delete" data-index="${i}">Hapus Testimoni</button>
+        `;
+        container.appendChild(el);
+      });
+
+      // hapus satu per satu
+      document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const index = this.getAttribute('data-index');
+          const konfirmasi = confirm(`r u sure to delete all of ${testimoniList[index].name}?`);
+          if (konfirmasi) {
+            testimoniList.splice(index, 1);
+            localStorage.setItem("testimoniList", JSON.stringify(testimoniList));
+            location.reload();
+          }
+        });
+      });
+      document.getElementById("btnBack").addEventListener("click", function() {
+    window.location.href = "testimoni.html"; 
+    // atau gunakan window.history.back();
+  });
+
+    }
+
+    // hapus semua
+    document.getElementById("removeAll").addEventListener("click", function() {
+      const konfirmasi = confirm("r u sure to delete all of them?");
+      if (konfirmasi) {
+        localStorage.removeItem("testimoniList");
+        location.reload();
+      }
+    });
+  </script>
+
+<footer>
+        <p>&copy; 2026 Phawaniey Literary House. All rights reserved.</p>
+    </footer>
+</body>
+</html>
